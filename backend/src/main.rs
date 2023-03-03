@@ -2,8 +2,8 @@ use actix_web::{ get, post, web, App, HttpResponse, HttpServer, Responder };
 use sqlx::mysql::{ MySqlPool, MySqlPoolOptions };
 
 #[derive(Clone)]
-struct AppState {
-    pool: MySqlPool
+pub struct AppState {
+    pub pool: MySqlPool
 }
 
 #[get("/")]
@@ -11,7 +11,7 @@ async fn hello() -> impl Responder {
     HttpResponse::Ok().body("")
 }
 
-#[path="./api/v1/user"]
+#[path="./api/v1/user.rs"]
 pub mod user;
 
 /*
@@ -30,7 +30,7 @@ async fn manual_hello() -> impl Responder {
 async fn main() -> std::io::Result<()> {
     const DB_URL: &str = "mysql://root:mariadb@www.mingty.com:3306/mingty";
     
-    let pool: MySqlPool = MySqlPoolOptions:new()
+    let pool: MySqlPool = MySqlPoolOptions::new()
         .max_connections(10)
         .connect(DB_URL)
         .await

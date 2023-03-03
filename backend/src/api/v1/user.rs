@@ -1,4 +1,10 @@
+use std::path;
+use main::AppState;
+
 use actix_web::{ get, post, web, App, HttpResponse, HttpServer, Responder };
+
+#[path="../../main.rs"]
+pub mod main;
 
 async fn get_user(path: web::Path<usize>, app_state: web::Data<AppState>) -> HttpResponse {
     let user_id: usize = path.into_inner();
